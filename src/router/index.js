@@ -1,7 +1,6 @@
 import Vue from 'vue'
-import VueRouter from 'vue-router'
-import Vant from 'vant'
-import 'vant/lib/index.css'
+import Router from 'vue-router'
+
 const Home = () => import('@/views/home')
 const Layout = () => import('@/views/layout')
 const Question = () => import('@/views/question')
@@ -14,8 +13,7 @@ const Search = () => import ('@/views/search')
 const SearchResult = () => import ('@/views/search/result')
 const Article = () => import ('@/views/article')
 
-Vue.use(Vant)
-Vue.use(VueRouter)
+Vue.use(Router)
 
 const routes = [
   {
@@ -74,7 +72,8 @@ const routes = [
 
 ]
 
-const router = new VueRouter({
+// eslint-disable-next-line no-undef
+const router = new Router({
   routes
 })
 
