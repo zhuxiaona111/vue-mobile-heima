@@ -1,5 +1,7 @@
 <template>
-  <div>公用布局</div>
+  <div>公用布局
+    <router-view></router-view>
+  </div>
 </template>
 
 <script>
