@@ -1,9 +1,10 @@
 <template>
-  <div>用户模块</div>
+  <div class="container">用户模块</div>
 </template>
 
 <script>
 export default {
+  name: 'user'
 }
 </script>
 
