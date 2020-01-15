@@ -45,6 +45,7 @@
 </template>
 
 <script>
+// import { getArticle } from '@/api/article'
 export default {
   name: 'article-list',
   data () {
@@ -52,7 +53,15 @@ export default {
       upLoading: false, // 开启刷拉加载状态
       finished: false,
       articles: [],
-      downLoading: false // 是否开启下拉刷新状态
+      downLoading: false, // 是否开启下拉刷新状态
+      timestamp: null// 显示最新数据
+    }
+  },
+  props: {
+    channel_id: {
+      type: Number,
+      required: true, // true要求props必需传
+      default: null
     }
   },
   methods: {

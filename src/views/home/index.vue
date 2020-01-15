@@ -3,7 +3,7 @@
     <van-tabs v-model="activeIndex" swipeable>
       <van-tab v-for="item in channels" :title="item.name" :key="item.id">
         <!-- 显示部分封装在article-list中 -->
-        <article-list></article-list>
+        <article-list :channel_id="item.id"></article-list>
       </van-tab>
     </van-tabs>
     <span class="bar_btn">
