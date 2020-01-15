@@ -5,29 +5,18 @@
       <!-- 上拉加载组件 -->
       <van-list v-model="upLoading" :finished="finished" finished-text="没有了" @load="onLoad">
         <!-- 渲染数据循环环遍历 -->
-        <van-cell v-for="article in articles" :key="article" >
-          <!-- ***********************************************三图模式模板************************ -->
+        <van-cell v-for="article in articles" :key="article.art_id.toString()">
           <div class="article_item">
-            <h3 class="van-ellipsis">PullRefresh下拉刷新PullRefresh下拉刷新下拉刷新下拉刷新</h3>
-            <div class="img_box">
-              <van-image class="w33" fit="cover" src="https://img.yzcdn.cn/vant/cat.jpeg" />
-              <van-image class="w33" fit="cover" src="https://img.yzcdn.cn/vant/cat.jpeg" />
-              <van-image class="w33" fit="cover" src="https://img.yzcdn.cn/vant/cat.jpeg" />
+            <h3 class="van-ellipsis">{{ article.title}}</h3>
+            <!-- ***********************************************三图模式模板************************ -->
+            <div class="img_box" v-if="article.cover.type === 3">
+              <van-image class="w33" fit="cover" :src="article.cover.images[0]" />
+              <van-image class="w33" fit="cover" :src="article.cover.images[1]" />
+              <van-image class="w33" fit="cover" :src="article.cover.images[2]" />
             </div>
-            <div class="info_box">
-              <span>你像一阵风</span>
-              <span>8评论</span>
-              <span>10分钟前</span>
-              <span class="close">
-                <van-icon name="cross"></van-icon>
-              </span>
-            </div>
-          </div>
-          <!-- **********************************************单图模式模板*************************** -->
-          <div class="article_item">
-            <h3 class="van-ellipsis">PullRefresh下拉刷新PullRefresh下拉刷新下拉刷新下拉刷新</h3>
-            <div class="img_box">
-              <van-image class="w100" fit="cover" src="https://img.yzcdn.cn/vant/cat.jpeg" />
+            <!-- **********************************************单图模式模板*************************** -->
+            <div class="img_box" v-if="article.cover.type === 1">
+              <van-image class="w100" fit="cover" :src="article.cover.images[0]" />
             </div>
             <div class="info_box">
               <span>你像一阵风</span>
@@ -54,7 +43,7 @@ export default {
       finished: false,
       articles: [],
       downLoading: false, // 是否开启下拉刷新状态
-      timestamp: null// 显示最新数据
+      timestamp: null // 显示最新数据
     }
   },
   props: {
@@ -66,7 +55,10 @@ export default {
   },
   methods: {
     async onLoad () {
-      const data = await getArticles({ channel_id: this.channel_id, timestamp: this.timestamp || Date.now() })
+      const data = await getArticles({
+        channel_id: this.channel_id,
+        timestamp: this.timestamp || Date.now()
+      })
       // this.articles = data.results
       this.articles.push(...data.results)
       this.upLoading = false // 关闭状态
@@ -93,31 +85,31 @@ export default {
 </script>
 
 <style lang="less" scoped>
-.article_item{
-  h3{
+.article_item {
+  h3 {
     font-weight: normal;
     line-height: 2;
   }
-  .img_box{
+  .img_box {
     display: flex;
     justify-content: space-between;
-    .w33{
+    .w33 {
       width: 33%;
       height: 90px;
     }
-    .w100{
+    .w100 {
       width: 100%;
       height: 180px;
     }
   }
-  .info_box{
+  .info_box {
     color: #999;
     line-height: 2;
     position: relative;
     font-size: 12px;
-    span{
+    span {
       padding-right: 10px;
-      &.close{
+      &.close {
         border: 1px solid #ddd;
         border-radius: 2px;
         line-height: 15px;
