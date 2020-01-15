@@ -19,9 +19,9 @@
               <van-image class="w100" fit="cover" :src="article.cover.images[0]" />
             </div>
             <div class="info_box">
-              <span>你像一阵风</span>
-              <span>8评论</span>
-              <span>10分钟前</span>
+              <span>{{article.aut_name}}</span>
+              <span>{{article.comm_count}}评论</span>
+              <span>{{article.pubdate}}</span>
               <span class="close">
                 <van-icon name="cross"></van-icon>
               </span>
