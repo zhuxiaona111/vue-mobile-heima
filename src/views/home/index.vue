@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <van-tabs v-model="activeIndex" swipeable>
-      <van-tab v-for="item in 10" :title="'标签'+item" :key="item">
+      <van-tab v-for="item in channels" :title="item.name" :key="item.id">
         <!-- 显示部分封装在article-list中 -->
         <article-list></article-list>
       </van-tab>
@@ -14,16 +14,28 @@
 
 <script>
 import ArticleList from './component/article-list'
+import { getUserChannels } from '@/api/channels'
 export default {
   name: 'home',
   data () {
     return {
-      activeIndex: 0
+      activeIndex: 0,
+      channels: [] // 声明接收频道的数据
     }
   },
   // 局部注册
   components: {
     ArticleList
+  },
+  created () {
+    this.getUserChannels()
+  },
+  methods: {
+    async getUserChannels () {
+      // 获取频道
+      const data = await getUserChannels()
+      this.channels = data.channels
+    }
   }
 }
 </script>
