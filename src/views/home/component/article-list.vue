@@ -1,7 +1,7 @@
 <template>
   <div class="scroll-wrapper">
     <!-- 下拉刷新组件 -->
-    <van-pull-refresh v-model="downLoading" @refresh="onRefresh">
+    <van-pull-refresh v-model="downLoading" :success-text="refreshSuccessText" @refresh="onRefresh">
       <!-- 上拉加载组件 -->
       <van-list v-model="upLoading" :finished="finished" finished-text="没有了" @load="onLoad">
         <!-- 渲染数据循环环遍历 -->
@@ -43,7 +43,8 @@ export default {
       finished: false,
       articles: [],
       downLoading: false, // 是否开启下拉刷新状态
-      timestamp: null // 显示最新数据
+      timestamp: null, // 显示最新数据
+      refreshSuccessText: null
     }
   },
   props: {
@@ -72,13 +73,17 @@ export default {
       }
     },
     // 下拉刷新方法
-    onRefresh () {
-      console.log('下拉刷新')
-      setTimeout(() => {
-        let arr = Array.from(Array(10), (value, index) => '追加' + (index + 1))
-        this.articles.unshift(...arr)
-        this.downLoading = false
-      }, 1000)
+    async onRefresh () {
+      const data = await getArticles({ channel_id: this.channel_id, timestamp: Date.now() })
+      this.downLoading = false // 加载完数据关掉下拉状态
+      if (data.results.length > 0) {
+        this.articles = data.results
+        this.finished = false
+        this.timestamp = data.pre_timestamp
+        this.refreshSuccessText = `更新了${data.results.length}数据`
+      } else {
+        this.refreshSuccessText = '已是最新数据'
+      }
     }
   }
 }
