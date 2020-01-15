@@ -1,6 +1,6 @@
 <template>
 <div class="container">
-    <van-nav-bar title="知天下" v-if="showNavBar" right-text="搜索" @click-right="$router.push('/search')"></van-nav-bar>
+    <van-nav-bar fixed title="知天下" v-if="showNavBar" right-text="搜索" @click-right="$router.push('/search')"></van-nav-bar>
     <div class="my-wrapper" :class="{ noTop: !showNavBar }">
     <router-view></router-view>
     </div>
@@ -11,7 +11,6 @@
         <van-tabbar-item to="/user" icon="user-o">我的</van-tabbar-item>
     </van-tabbar>
 </div>
-
 </template>
 
 <script>
@@ -41,5 +40,8 @@ export default {
       padding-top: 0;
     }
   }
+}
+.van-nav-bar{
+  display: flex;
 }
 </style>

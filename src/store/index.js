@@ -11,7 +11,7 @@ export default new Vuex.Store({
   mutations: {
     updataUser (state, payload) {
       state.user = payload.user
-      auth.setUser(payload.use)
+      auth.setUser(payload.user)
     },
     clear (state) {
       state.user = {}

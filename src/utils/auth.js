@@ -6,9 +6,9 @@ export function setUser (user) {
 }
 // 获取token
 export function getUser () {
-  JSON.parse(localStorage.getItem(USER_TOKEN) || '{}')
+  return JSON.parse(localStorage.getItem(USER_TOKEN) || '{}')
 }
 // 删除token
 export function delUser () {
-  localStorage.removeItem(USER_TOKEN)
+  return localStorage.removeItem(USER_TOKEN)
 }
