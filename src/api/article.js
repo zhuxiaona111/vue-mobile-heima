@@ -1,7 +1,7 @@
 // 文章列表接口封装
 import request from '@/utils/request'
 
-export function getArticle (params) {
+export function getArticles (params) {
   return request({
     // 与基础地址不一样，写全
     url: 'http://ttapi.research.itcast.cn/app/v1_1/articles',

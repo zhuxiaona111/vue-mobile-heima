@@ -45,7 +45,7 @@
 </template>
 
 <script>
-// import { getArticle } from '@/api/article'
+import { getArticles } from '@/api/article'
 export default {
   name: 'article-list',
   data () {
@@ -65,22 +65,19 @@ export default {
     }
   },
   methods: {
-    onLoad () {
-      console.log('获取数据')
-      setTimeout(() => {
-        // 模拟生成数组
-        if (this.articles.length < 50) {
-          let arr = Array.from(
-            Array(10),
-            (value, index) => this.articles.length + index + 1
-          )
-          // 在数组后面追加数组，...arr解构数组
-          this.articles.push(...arr)
-          this.upLoading = false
-        } else {
-          this.finished = true // 加载完毕，改状态
-        }
-      }, 1000)
+    async onLoad () {
+      const data = await getArticles({ channel_id: this.channel_id, timestamp: this.timestamp || Date.now() })
+      // this.articles = data.results
+      this.articles.push(...data.results)
+      this.upLoading = false // 关闭状态
+      // 判断历史时间戳，有就继续加载，没有将finished改为true
+      if (data.pre_timestamp) {
+        // 如果有数据中有时间戳就将后台返给的的历史时间戳赋给data
+        this.timestamp = data.pre_timestamp
+      } else {
+        // 没有就将状态设为加载完毕
+        this.finished = true
+      }
     },
     // 下拉刷新方法
     onRefresh () {
