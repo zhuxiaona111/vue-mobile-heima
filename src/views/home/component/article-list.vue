@@ -56,6 +56,7 @@ export default {
   },
   methods: {
     async onLoad () {
+      await this.$sleep(3000)
       const data = await getArticles({
         channel_id: this.channel_id,
         timestamp: this.timestamp || Date.now()
@@ -74,6 +75,7 @@ export default {
     },
     // 下拉刷新方法
     async onRefresh () {
+      await this.$sleep(3000)
       const data = await getArticles({ channel_id: this.channel_id, timestamp: Date.now() })
       this.downLoading = false // 加载完数据关掉下拉状态
       if (data.results.length > 0) {
